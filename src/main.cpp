@@ -5,7 +5,6 @@
 #include <sstream>
 #include <iostream>
 #include <stdexcept>
-#include <boost/algorithm/string/join.hpp>
 
 template <typename T>
 std::string to_string(T value)
@@ -45,8 +44,15 @@ void printDeviceType(cl_device_id device) {
     if (devType & CL_DEVICE_TYPE_DEFAULT) {
         devTypes.emplace_back("DEFAULT");
     }
-    std::string devTypesStr = boost::algorithm::join(devTypes, ", ");
-    std::cout << "        Device type: " << devTypesStr << std::endl;
+
+    std::cout << "        Device type: ";
+    for (int i = 0; i < devTypes.size(); i++) {
+        if (i != 0) {
+            std::cout << ", ";
+        }
+        std::cout << devTypes[i];
+    }
+    std::cout << std::endl;
 }
 
 int main()
